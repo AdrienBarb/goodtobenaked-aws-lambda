@@ -9,15 +9,14 @@ const mediaConvert = new MediaConvertClient({
 });
 
 export const handler = async (event) => {
-  console.log("Event ", event);
   try {
     const { bucket, key, userId, fileName, mediaType } = event;
     const inputPath = `s3://${bucket}/${key}`;
-    const outputPathVideo = `s3://processed-media-gtbn-prod/converted/${userId}/`;
-    const outputPathThumbnail = `s3://processed-media-gtbn-prod/poster/${userId}/`;
+    const outputPathVideo = `s3://${process.env.PROCESS_MEDIA_BUCKET}/converted/${userId}/`;
+    const outputPathThumbnail = `s3://${process.env.PROCESS_MEDIA_BUCKET}/poster/${userId}/`;
 
     const params = {
-      Role: "arn:aws:iam::429226243664:role/MediaConvertRole-gtbn-prod",
+      Role: process.env.MEDIA_CONVERT_ROLE_ARN,
       Settings: {
         Inputs: [
           {

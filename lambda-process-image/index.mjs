@@ -40,7 +40,7 @@ const processImage = async (bucket, key, userId, fileName, mediaType) => {
     // Sauvegarde des images converties et optimisées dans S3
     const putObject = async (key, body) => {
       const uploadParams = {
-        Bucket: "processed-media-gtbn-prod",
+        Bucket: process.env.PROCESS_MEDIA_BUCKET,
         Key: key,
         Body: body,
         ContentType: "image/jpeg",
@@ -72,8 +72,6 @@ const processImage = async (bucket, key, userId, fileName, mediaType) => {
 };
 
 export const handler = async (event) => {
-  console.log("Received event:", JSON.stringify(event, null, 2));
-
   const { bucket, key, userId, fileName, mediaType } = event;
 
   const response = await processImage(bucket, key, userId, fileName, mediaType);

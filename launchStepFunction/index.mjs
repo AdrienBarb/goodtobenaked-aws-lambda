@@ -13,8 +13,7 @@ export const handler = async (event) => {
       );
 
       const stepFunctionParams = {
-        stateMachineArn:
-          "arn:aws:states:eu-west-3:429226243664:stateMachine:MyStateMachine-i7syd375l",
+        stateMachineArn: process.env.STATE_MACHINE_ARN,
         input: JSON.stringify({
           bucket,
           key,

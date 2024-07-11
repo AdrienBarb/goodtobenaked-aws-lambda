@@ -10,7 +10,6 @@ const mediaConvert = new MediaConvertClient({
 
 export const handler = async (event) => {
   try {
-    console.log("Event ", event);
     const { jobId, userId, fileName, mediaType } = event;
 
     const command = new GetJobCommand({
@@ -18,8 +17,6 @@ export const handler = async (event) => {
     });
 
     const job = await mediaConvert.send(command);
-
-    console.log("job : ", job);
 
     if (job.Job.Status === "COMPLETE") {
       return {

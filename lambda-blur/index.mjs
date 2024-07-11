@@ -11,12 +11,10 @@ const sns = new SNSClient({ region: "eu-west-3" });
 
 const blurImage = async (userId, fileName, mediaType) => {
   try {
-    const bucket = "processed-media-gtbn-prod";
+    const bucket = process.env.PROCESSED_MEDIA_BUCKET;
     const posterKey = `poster/${userId}/${fileName}${
       mediaType === "images" ? "" : "_thumbnail.0000000"
     }.jpg`;
-
-    console.log("Poster key ", posterKey);
 
     const params = { Bucket: bucket, Key: posterKey };
     const command = new GetObjectCommand(params);
@@ -42,7 +40,7 @@ const blurImage = async (userId, fileName, mediaType) => {
 
     // Sauvegarde de l'image floutée dans S3
     const uploadParams = {
-      Bucket: "processed-media-gtbn-prod",
+      Bucket: process.env.PROCESSED_MEDIA_BUCKET,
       Key: newKey,
       Body: blurredImage,
       ContentType: "image/jpeg",
@@ -75,8 +73,6 @@ const blurImage = async (userId, fileName, mediaType) => {
 };
 
 export const handler = async (event) => {
-  console.log("Event: ", event);
-
   const { userId, fileName, mediaType } = event;
   const response = await blurImage(userId, fileName, mediaType);
 

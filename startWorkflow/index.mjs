@@ -17,7 +17,7 @@ export const handler = async (event) => {
     const fileName = fileNameWithExtension.split(".").slice(0, -1).join(".");
 
     const params = {
-      QueueUrl: process.env.SQS_QUEUE_URL, // Assurez-vous de définir cette variable d'environnement
+      QueueUrl: process.env.SQS_QUEUE_URL,
       MessageBody: JSON.stringify({
         bucket,
         key,
@@ -27,15 +27,10 @@ export const handler = async (event) => {
       }),
     };
 
-    console.log("Params ", params);
-
     try {
       const command = new SendMessageCommand(params);
       const r = await sqsClient.send(command);
-      console.log("Response ", r);
-      console.log(
-        `Message sent to SQS for userId: ${userId}, mediaType: ${mediaType}, fileName: ${fileName}`
-      );
+
       return {
         statusCode: 200,
         body: JSON.stringify({
