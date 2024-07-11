@@ -1,0 +1,19 @@
+{
+  "name": "lambda-s3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-mediaconvert": "^3.590.0",
+    "@aws-sdk/client-s3": "^3.591.0",
+    "@aws-sdk/client-sfn": "^3.598.0",
+    "@aws-sdk/client-sqs": "^3.600.0",
+    "sharp": "^0.32.6"
+  }
+}
